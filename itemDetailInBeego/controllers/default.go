@@ -97,7 +97,7 @@ func (c *MainController) Get() {
 	//c.Data["Title"] = models.GetTitle()
 	//c.Data["Price"] = models.GetPriceString()
 
-	c.TplName = "register.html"
+	c.TplName = "index.html"
 }
 
 func (c *MainController) Post() {
@@ -169,4 +169,48 @@ func (c *MainController) HandleLogin() {
 
 func (c *MainController) ShowIndex() {
 	c.TplName = "index.html"
+}
+
+//显示添加文章界面
+
+func (c *MainController) ShowAdd() {
+	c.TplName = "add.html"
+}
+
+//添加的实现
+func (c *MainController) HandleAdd() {
+
+	//拿到数据
+	artiName := c.GetString("articleName")
+	artiContent := c.GetString("content")
+	fmt.Println(artiName, artiContent)
+	f, h, err := c.GetFile("uploadname")
+	defer f.Close()
+
+	if err != nil {
+		fmt.Println("上传失败", err)
+		return
+	} else {
+		c.SaveToFile("uploadname", "./ststic/img/"+h.Filename)
+	}
+
+	//判断数据合法
+	if artiName == "" || artiContent == "" {
+		fmt.Println("数据不能为空")
+		return
+	}
+	//插入数据
+	o := orm.NewOrm()
+	arti := models.Article{}
+	arti.Aname = artiName
+	arti.Acontent = artiContent
+	arti.Aimg = "./ststic/img/" + h.Filename
+
+	_, err = o.Insert(&arti)
+	if err != nil {
+		fmt.Println("插入失败", err)
+		return
+	}
+	//返回首页
+	c.Redirect("/index", 302)
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-
 )
 
 //RESTful Controller 路由
@@ -11,11 +10,11 @@ type RESTfulController struct {
 	beego.Controller
 }
 
-func (this *RESTfulController) Get()  {
+func (this *RESTfulController) Get() {
 	this.Ctx.WriteString("Hello World in GET Methad")
 }
 
-func (this *RESTfulController) Post()  {
+func (this *RESTfulController) Post() {
 	this.Ctx.WriteString("Hello World in POST Methad")
 }
 
@@ -24,7 +23,7 @@ type RegExpController struct {
 	beego.Controller
 }
 
-func (this *RegExpController) Get()  {
+func (this *RegExpController) Get() {
 	this.Ctx.WriteString(fmt.Sprintln("In RegExp Mode!"))
 
 	id := this.Ctx.Input.Param(":id")
@@ -40,8 +39,7 @@ func (this *RegExpController) Get()  {
 	this.Ctx.WriteString(fmt.Sprintf("ext is: %s\n", ext))
 }
 
-
-func main()  {
+func main() {
 	//RESTful Controller 路由
 	beego.Router("/RESTful", &RESTfulController{})
 
@@ -53,8 +51,6 @@ func main()  {
 	beego.Router("/RegExp5/*", &RegExpController{})
 	beego.Router("/RegExp6/*.*", &RegExpController{})
 
-
-
 	//服务启动
-	beego.Run("172.17.0.1:8081")
+	beego.Run("127.0.0.1:8097")
 }

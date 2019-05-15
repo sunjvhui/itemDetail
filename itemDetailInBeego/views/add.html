@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>添加</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>添加文章</h1>
+    <form method="post" action="/addArticle" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="articleName">文章标题</label>
+            <input type="text" name="articleName" class="form-control" placeholder="文本输入">
+        </div>
+
+
+        <div class="form-group">
+            <label for="name">文章类型</label>
+            <select class="form-control" name="select">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="content">文章内容</label>
+            <textarea class="form-control" name="content" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="sr-only" for="inputfile">上传图片</label>
+            <input type="file" id="inputfile" name="uploadname">
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+</div>
+</body>
+</html>
