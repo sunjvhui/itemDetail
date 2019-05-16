@@ -5,6 +5,8 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"itemDetail/itemDetailInBeego/models"
+	"path"
+	"time"
 )
 
 type MainController struct {
@@ -167,7 +169,17 @@ func (c *MainController) HandleLogin() {
 	c.Redirect("/index", 302)
 }
 
+//首页内容显示
 func (c *MainController) ShowIndex() {
+	o := orm.NewOrm()
+	var articles []models.Article
+	_, err := o.QueryTable("Article").All(&articles)
+	if err != nil {
+		fmt.Println("查询失败", err)
+		return
+	}
+	c.Data["articles"] = articles
+
 	c.TplName = "index.html"
 }
 
@@ -184,14 +196,32 @@ func (c *MainController) HandleAdd() {
 	artiName := c.GetString("articleName")
 	artiContent := c.GetString("content")
 	fmt.Println(artiName, artiContent)
+
+	//拿到图片数据
 	f, h, err := c.GetFile("uploadname")
 	defer f.Close()
+
+	//限制格式
+	fileext := path.Ext(h.Filename)
+	fmt.Println(fileext)
+	if fileext != ".jpg" && fileext != ".png" {
+		fmt.Println("格式错误")
+		return
+	}
+	//限制大小
+	if h.Size > 50000000 {
+		fmt.Println("文件过大")
+		return
+	}
+
+	//对文件重命名
+	filename := time.Now().Format("2006-01-02-15-04-05") + fileext
 
 	if err != nil {
 		fmt.Println("上传失败", err)
 		return
 	} else {
-		c.SaveToFile("uploadname", "./ststic/img/"+h.Filename)
+		c.SaveToFile("uploadname", "./ststic/img/"+filename)
 	}
 
 	//判断数据合法
