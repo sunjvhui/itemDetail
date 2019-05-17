@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>添加</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <h1>文章详情</h1>
+    <form method="post" action="/addArticle" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="articleName">文章标题</label>
+            <input type="text" name="articleName" class="form-control" placeholder="文本输入" value="{{.article.Aname}}">
+        </div>
 
+
+        <div class="form-group">
+            <label for="name">文章类型</label>
+            <select class="form-control" name="select">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="content">文章内容</label>
+            <p class="form-control"><img src="{{.article.Aimg}}">{{.article.Acontent}}</p>
+        </div>
+        <div class="form-group">
+            <label for="content">阅读量</label>
+            <p class="form-control">{{.article.Acount}}</p>
+        </div>
+        <div class="form-group">
+            <label for="content">上传时间</label>
+            <p class="form-control">{{.article.Atime}}</p>
+        </div>
+
+    </form>
+</div>
 </body>
 </html>

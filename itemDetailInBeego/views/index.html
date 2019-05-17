@@ -31,7 +31,7 @@
         {{range .articles}}
         <tr>
             <td>{{.Aname}}</td>
-            <td><a href="#">查看详情</a></td>
+            <td><a href="/content?id={{.Id}}">查看详情</a></td>
             <td>{{.Atime.Format "2006-01-02"}}</td>
             <td>{{.Acount}}</td>
             <td>0</td>

@@ -15,4 +15,5 @@ func init() {
 	beego.Router("/index", &controllers.MainController{}, "get:ShowIndex")
 	//添加文章
 	beego.Router("/addArticle", &controllers.MainController{}, "get:ShowAdd;post:HandleAdd")
+	beego.Router("/content", &controllers.MainController{}, "get:ShowContent")
 }

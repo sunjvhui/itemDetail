@@ -244,3 +244,25 @@ func (c *MainController) HandleAdd() {
 	//返回首页
 	c.Redirect("/index", 302)
 }
+
+//显示内容详情页
+func (c *MainController) ShowContent() {
+	//得到文章id
+	id, ell := c.GetInt("id")
+	if ell != nil {
+		fmt.Println(ell, "获取id错误")
+		return
+	}
+	//查询数据库
+	o := orm.NewOrm()
+	arti := models.Article{Id: id}
+	ell = o.Read(&arti)
+	if ell != nil {
+		fmt.Println(ell, "查询不到数据")
+		return
+	}
+
+	//传递数据给视图
+	c.Data["article"] = arti
+	c.TplName = "content.html"
+}
